@@ -18,9 +18,10 @@ steps:
       echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
       echo 'gpgcheck=1' && \
       echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
+      ls -alh /etc/yum.repos.d/
       #chmod +x ./get-graalvm.sh
       #sh ./get-graalvm.sh
-      sudo yum -y install graalvm22-ee-17-native-image
+      yum -y install graalvm22-ee-17-native-image
       export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
       export PATH=$JAVA_HOME/bin:$PATH
       echo $PATH
