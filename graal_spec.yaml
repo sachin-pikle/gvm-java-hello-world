@@ -18,6 +18,7 @@ steps:
       echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
       echo 'gpgcheck=1' && \
       echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
+      yum-config-manager --enable ol7_optional_latest
       ls -alh /etc/yum.repos.d/
       #chmod +x ./get-graalvm.sh
       #sh ./get-graalvm.sh
