@@ -1,0 +1,24 @@
+version: 0.1
+component: build
+timeoutInSeconds: 20000
+runAs: root
+shell: bash
+env:
+  exportedVariables:
+   - version
+steps:
+  - type: Command
+    name: "Install latest graal vm ee"
+    command: |
+      ls -alh /etc/yum.repos.d/
+      ls -alh /etc/pki/rpm-gpg/
+      (echo -e '[ol7_oci_included]' && \
+      echo 'name=Oracle Software for OCI users on Oracle Linux $releasever ($basearch)' && \
+      echo 'baseurl=https://yum-phx.oracle.com/repo/OracleLinux/OL7/oci/included/\$basearch/' && \
+      echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
+      echo 'gpgcheck=1' && \
+      echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
+      #chmod +x ./get-graalvm.sh
+      #sh ./get-graalvm.sh
+      echo "hello world"
+  
