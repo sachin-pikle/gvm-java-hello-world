@@ -8,10 +8,14 @@ env:
    - version
 steps:
   - type: Command
-    name: "Install latest graal vm ee"
+    name: "Pre-yum repo checks"
     command: |
       ls -alh /etc/yum.repos.d/
       ls -alh /etc/pki/rpm-gpg/
+  - type: Command
+    name: "Temporary workaround: Set up the yum repo"
+    command: |
+      ##### BEGIN: Temporary workaround. This step will move to the build runner.
       (echo -e '[ol7_oci_included]' && \
       echo 'name=Oracle Software for OCI users on Oracle Linux $releasever ($basearch)' && \
       echo 'baseurl=https://yum-phx.oracle.com/repo/OracleLinux/OL7/oci/included/\$basearch/' && \
@@ -20,12 +24,42 @@ steps:
       echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
       yum-config-manager --enable ol7_optional_latest
       ## yum-config-manager --enable ol7_oci_included
+      ##### END: Temporary workaround. This step will move to the build runner.
+  - type: Command
+    name: "Post-yum repo checks"
+    command: |
       ls -alh /etc/yum.repos.d/
+  - type: Command
+    name: "Install GraalVM Enterprise 22.1 Java 17 - JDK and Native Image"
+    command: |
       yum -y install graalvm22-ee-17-native-image
       export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
       export PATH=$JAVA_HOME/bin:$PATH
-      echo $PATH
+  - type: Command
+    name: "Post-install checks"
+    command: |
       echo $JAVA_HOME
-      native-image --version
+      echo $PATH
       java -version
-      echo "hello world"
+      native-image --version
+      mvn --version
+  - type: Command
+    name: "Build the JAR"
+    command: |
+      mvn clean package
+  - type: Command
+    name: "Run the JAR"
+    command: |
+      java -jar target/my-app-1.0-SNAPSHOT.jar
+  - type: Command
+    name: "Run mvn clean to remove all generated build files"
+    command: |
+      mvn clean
+  - type: Command
+    name: "Build the native executable"
+    command: |
+      mvn clean -Pnative -DskipTests package
+  - type: Command
+    name: "Run the native executable"
+    command: |
+      ./target/my-app
