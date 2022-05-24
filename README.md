@@ -11,7 +11,11 @@ To run this sample on local you need the following software:
 ## Steps
 1. Git clone this repo.
 
-2. Run `mvn clean package`
+2. Build the executable jar for the sample app.
+
+    ```shell
+    mvn clean package
+    ```
 
 3. Run the java program using:
 
