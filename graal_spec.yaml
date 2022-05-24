@@ -41,7 +41,7 @@ steps:
     name: "Set the JAVA_HOME and PATH"
     command: |
       # export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
-      export PATH=abc/xyz:$JAVA_HOME/bin:$PATH
+      export PATH=$JAVA_HOME/bin:$PATH
   - type: Command
     name: "Post-install checks"
     command: |
@@ -64,7 +64,8 @@ steps:
       echo "PATH: $PATH"
       echo "Which Java: $(which java)"
       echo "Java version: $(java -version)"
-      "$JAVA_HOME/bin/java" -jar target/my-app-1.0-SNAPSHOT.jar
+      # "$JAVA_HOME/bin/java" -jar target/my-app-1.0-SNAPSHOT.jar
+      java -jar target/my-app-1.0-SNAPSHOT.jar
   - type: Command
     name: "Run mvn clean to remove all generated build files"
     command: |
