@@ -45,6 +45,7 @@ steps:
     command: |
       echo "JAVA_HOME: $JAVA_HOME"
       echo "PATH: $PATH"
+      echo "Which Java: $(which java)"
       echo "Java version: $(java -version)"
       echo "Native-image version: $(native-image --version)"
       echo "Maven version: $(mvn --version)"
@@ -57,6 +58,10 @@ steps:
   - type: Command
     name: "Run the JAR"
     command: |
+      echo "JAVA_HOME: $JAVA_HOME"
+      echo "PATH: $PATH"
+      echo "Which Java: $(which java)"
+      echo "Java version: $(java -version)"
       java -jar target/my-app-1.0-SNAPSHOT.jar
   - type: Command
     name: "Run mvn clean to remove all generated build files"
