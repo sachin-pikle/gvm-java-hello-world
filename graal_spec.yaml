@@ -12,8 +12,8 @@ steps:
   - type: Command
     name: "Pre-yum repo checks"
     command: |
-      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/)"
-      printf "Contents of /etc/pki/rpm-gpg/:\n $(ls -alh /etc/pki/rpm-gpg/)"     
+      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
+      printf "Contents of /etc/pki/rpm-gpg/:\n $(ls -alh /etc/pki/rpm-gpg/) \n"     
   - type: Command
     name: "Temporary workaround: Set up the yum repo"
     command: |
@@ -30,8 +30,7 @@ steps:
   - type: Command
     name: "Post-yum repo checks"
     command: |
-      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/)"
-      # ls -alh /etc/yum.repos.d/
+      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
   - type: Command
     name: "Install GraalVM Enterprise 22.1 Java 17 - JDK and Native Image"
     command: |
@@ -40,16 +39,16 @@ steps:
     name: "Set the PATH here. JAVA_HOME already set in env > variables above."
     command: |
       echo "JAVA_HOME: $JAVA_HOME"
-      echo "PATH: $PATH"
+      echo "Before PATH: $PATH"
       export PATH=$JAVA_HOME/bin:$PATH
   - type: Command
     name: "Post-install checks"
     command: |
       echo "JAVA_HOME: $JAVA_HOME"
-      echo "PATH: $PATH"
-      printf "Java version:\n $(java -version)"  
-      printf "Native-image version:\n $(native-image --version)"  
-      printf "Maven version:\n $(mvn --version)"  
+      echo "After PATH: $PATH"
+      printf "Java version:\n $(java -version) \n"
+      printf "Native-image version: $(native-image --version) \n"
+      printf "Maven version:\n $(mvn --version) \n"
       echo "Current dir: $(pwd)"
       printf "Current dir contents:\n $(ls -alh)"  
   - type: Command
