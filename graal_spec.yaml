@@ -76,6 +76,9 @@ steps:
     command: |
       ./target/my-app
 outputArtifacts:
+  - name: app_jar
+    type: BINARY
+    location: target/my-app-1.0-SNAPSHOT.jar
   - name: app_native_executable
     type: BINARY
     location: target/my-app
