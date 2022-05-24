@@ -4,10 +4,12 @@ timeoutInSeconds: 20000
 runAs: root
 shell: bash
 env:
+  variables:
+    "JAVA_HOME" : "/usr/lib64/graalvm/graalvm22-ee-java17"
   # exportedVariables are made available to use as parameters in sucessor Build Pipeline stages
   # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
-  exportedVariables:
-    - JAVA_HOME
+  # exportedVariables:
+  #   - JAVA_HOME
 steps:
   - type: Command
     name: "Pre-yum repo checks"
@@ -38,8 +40,8 @@ steps:
   - type: Command
     name: "Set the JAVA_HOME and PATH"
     command: |
-      export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
-      export PATH=$JAVA_HOME/bin:$PATH
+      # export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
+      export PATH=abc/xyz:$JAVA_HOME/bin:$PATH
   - type: Command
     name: "Post-install checks"
     command: |
