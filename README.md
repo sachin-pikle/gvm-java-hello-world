@@ -4,8 +4,37 @@
 
 To run this sample on local you need the following software:
 
-1. GraalVM Enterprise or Community 22.1 Java 17 - JDK and Native Image
+1. GraalVM Enterprise or Community 22.1 Java 17
+    - JDK
+    - Native Image
+
 2. Maven
+
+3. Check the versions installed using:
+
+    ```shell
+    $ java -version
+    
+    openjdk version "17.0.3" 2022-04-19
+    OpenJDK Runtime Environment GraalVM CE 22.1.0 (build 17.0.3+7-jvmci-22.1-b06)
+    OpenJDK 64-Bit Server VM GraalVM CE 22.1.0 (build 17.0.3+7-jvmci-22.1-b06, mixed mode, sharing)
+    ```
+
+    ```shell
+    $ native-image --version
+    
+    GraalVM 22.1.0 Java 17 CE (Java Version 17.0.3+7-jvmci-22.1-b06)
+    ```
+
+    ```shell
+    $ mvn --version
+
+    Apache Maven 3.8.4 (9b656c72d54e5bacbed989b64718c159fe39b537)
+    Maven home: /usr/local/Cellar/maven/3.8.4/libexec
+    Java version: 17.0.3, vendor: GraalVM Community, runtime: /Users/user1/.sdkman/candidates/java/22.1.0.r17-grl
+    Default locale: en_US, platform encoding: UTF-8
+    OS name: "mac os x", version: "12.3.1", arch: "x86_64", family: "mac"
+    ```
 
 
 ## Steps
