@@ -54,7 +54,7 @@ steps:
   - type: Command
     name: "Build the JAR"
     command: |
-      mvn clean package
+      mvn --no-transfer-progress clean package
   - type: Command
     name: "Run the JAR"
     command: |
@@ -70,8 +70,12 @@ steps:
   - type: Command
     name: "Build the native executable"
     command: |
-      mvn clean -Pnative -DskipTests package
+      mvn --no-transfer-progress clean -Pnative -DskipTests package
   - type: Command
     name: "Run the native executable"
     command: |
       ./target/my-app
+outputArtifacts:
+  - name: "App native executable"
+    type: BINARY
+    location: target/my-app
