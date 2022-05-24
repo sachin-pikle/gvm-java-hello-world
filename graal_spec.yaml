@@ -12,6 +12,7 @@ steps:
   - type: Command
     name: "Pre-yum repo checks"
     command: |
+      printf "\n\n Contents of graal_spec.yaml file:\n $(cat graal_spec.yaml) \n\n"
       printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
       printf "Contents of /etc/pki/rpm-gpg/:\n $(ls -alh /etc/pki/rpm-gpg/) \n"     
   - type: Command
