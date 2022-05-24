@@ -76,6 +76,6 @@ steps:
     command: |
       ./target/my-app
 outputArtifacts:
-  - name: "App native executable"
+  - name: app_native_executable
     type: BINARY
     location: target/my-app
