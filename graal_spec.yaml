@@ -8,7 +8,6 @@ env:
   # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
   exportedVariables:
     - JAVA_HOME
-    - PATH
 steps:
   - type: Command
     name: "Pre-yum repo checks"
