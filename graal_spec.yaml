@@ -4,8 +4,11 @@ timeoutInSeconds: 20000
 runAs: root
 shell: bash
 env:
+  # exportedVariables are made available to use as parameters in sucessor Build Pipeline stages
+  # For this Build to run, the Build Pipeline needs to have a BUILDRUN_HASH parameter set
   exportedVariables:
-   - version
+    - JAVA_HOME
+    - PATH
 steps:
   - type: Command
     name: "Pre-yum repo checks"
@@ -36,18 +39,18 @@ steps:
   - type: Command
     name: "Set the JAVA_HOME and PATH"
     command: |
-      # export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
-      # export PATH=$JAVA_HOME/bin:$PATH
-      echo "export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java11" >> ~/.bashrc
-      echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+      export JAVA_HOME=/usr/lib64/graalvm/graalvm22-ee-java17
+      export PATH=$JAVA_HOME/bin:$PATH
   - type: Command
     name: "Post-install checks"
     command: |
-      echo $JAVA_HOME
-      echo $PATH
-      java -version
-      native-image --version
-      mvn --version
+      echo "JAVA_HOME: $JAVA_HOME"
+      echo "PATH: $PATH"
+      echo "Java version: $(java -version)"
+      echo "Native-image version: $(native-image --version)"
+      echo "Maven version: $(mvn --version)"
+      echo "Current dir: $(pwd)"
+      echo "Current dir contents: $(ls -alh)"
   - type: Command
     name: "Build the JAR"
     command: |
