@@ -64,7 +64,7 @@ steps:
     name: "Build the native executable"
     command: |
       # mvn --no-transfer-progress clean -Pnative -DskipTests package
-      mvn --no-transfer-progress -Pnative package
+      mvn --no-transfer-progress -Pnative -DskipTests package
 outputArtifacts:
   - name: app_jar
     type: BINARY
