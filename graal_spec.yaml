@@ -56,14 +56,15 @@ steps:
     name: "Build the JAR"
     command: |
       mvn --no-transfer-progress clean package
-  - type: Command
-    name: "Run mvn clean to remove all generated build files"
-    command: |
-      mvn clean
+  # - type: Command
+  #   name: "Run mvn clean to remove all generated build files"
+  #   command: |
+  #     mvn clean
   - type: Command
     name: "Build the native executable"
     command: |
-      mvn --no-transfer-progress clean -Pnative -DskipTests package
+      # mvn --no-transfer-progress clean -Pnative -DskipTests package
+      mvn --no-transfer-progress -Pnative -DskipTests package
 outputArtifacts:
   - name: app_jar
     type: BINARY
