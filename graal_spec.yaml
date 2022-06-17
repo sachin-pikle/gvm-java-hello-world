@@ -15,23 +15,23 @@ steps:
       printf "\n\n Contents of graal_spec.yaml file:\n $(cat graal_spec.yaml) \n\n"
       printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
       printf "Contents of /etc/pki/rpm-gpg/:\n $(ls -alh /etc/pki/rpm-gpg/) \n"     
-  - type: Command
-    name: "Temporary workaround: Set up the yum repo"
-    command: |
-      ##### BEGIN: Temporary workaround. This step will move to the build runner.
-      (echo -e '[ol7_oci_included]' && \
-      echo 'name=Oracle Software for OCI users on Oracle Linux $releasever ($basearch)' && \
-      echo 'baseurl=https://yum-phx.oracle.com/repo/OracleLinux/OL7/oci/included/\$basearch/' && \
-      echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
-      echo 'gpgcheck=1' && \
-      echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
-      yum-config-manager --enable ol7_optional_latest
-      ## yum-config-manager --enable ol7_oci_included
-      ##### END: Temporary workaround. This step will move to the build runner.
-  - type: Command
-    name: "Post-yum repo checks"
-    command: |
-      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
+  # - type: Command
+  #   name: "Temporary workaround: Set up the yum repo"
+  #   command: |
+  #     ##### BEGIN: Temporary workaround. This step will move to the build runner.
+  #     (echo -e '[ol7_oci_included]' && \
+  #     echo 'name=Oracle Software for OCI users on Oracle Linux $releasever ($basearch)' && \
+  #     echo 'baseurl=https://yum-phx.oracle.com/repo/OracleLinux/OL7/oci/included/\$basearch/' && \
+  #     echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
+  #     echo 'gpgcheck=1' && \
+  #     echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
+  #     yum-config-manager --enable ol7_optional_latest
+  #     ## yum-config-manager --enable ol7_oci_included
+  #     ##### END: Temporary workaround. This step will move to the build runner.
+  # - type: Command
+  #   name: "Post-yum repo checks"
+  #   command: |
+  #     printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
   - type: Command
     name: "Install GraalVM Enterprise 22.1 Java 17 - JDK and Native Image"
     command: |
@@ -57,10 +57,6 @@ steps:
     command: |
       mvn --no-transfer-progress clean package
   - type: Command
-    name: "Run the JAR"
-    command: |
-      java -jar target/my-app-1.0-SNAPSHOT.jar
-  - type: Command
     name: "Run mvn clean to remove all generated build files"
     command: |
       mvn clean
@@ -68,10 +64,6 @@ steps:
     name: "Build the native executable"
     command: |
       mvn --no-transfer-progress clean -Pnative -DskipTests package
-  - type: Command
-    name: "Run the native executable"
-    command: |
-      ./target/my-app
 outputArtifacts:
   - name: app_jar
     type: BINARY
