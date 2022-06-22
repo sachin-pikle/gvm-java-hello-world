@@ -10,10 +10,6 @@ env:
     # However, PATH can be changed in a build step and the change is visible in subsequent steps.
 steps:
   - type: Command
-    name: "Pre-yum repo checks"
-    command: |
-      printf "Output of yum list graalvm22-ee-17* :\n $(yum list graalvm22-ee-17*) \n"
-  - type: Command
     name: "Install GraalVM Enterprise 22.1 Java 17 - JDK and Native Image"
     command: |
       yum -y install graalvm22-ee-17-native-image
@@ -22,11 +18,11 @@ steps:
     command: |
       export PATH=$JAVA_HOME/bin:$PATH
   - type: Command
-    name: "Build the JAR"
+    name: "Build the JAR using GraalVM Enterprise 22.1 Java 17 - JDK"
     command: |
       mvn --no-transfer-progress clean package
   - type: Command
-    name: "Build the native executable"
+    name: "Build the native executable using GraalVM Enterprise 22.1 Java 17 - Native Image"
     command: |
       mvn --no-transfer-progress -Pnative -DskipTests package
 outputArtifacts:
