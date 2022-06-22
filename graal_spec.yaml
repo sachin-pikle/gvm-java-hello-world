@@ -12,28 +12,7 @@ steps:
   - type: Command
     name: "Pre-yum repo checks"
     command: |
-      printf "\n\n Contents of graal_spec.yaml file:\n $(cat graal_spec.yaml) \n\n"
-      printf "Contents of /etc/pki/rpm-gpg/:\n $(ls -alh /etc/pki/rpm-gpg/) \n"     
-      printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
-      printf "Contents of etc/yum.repos.d/oci-included-ol7.repo file:\n $(cat "etc/yum.repos.d/oci-included-ol7.repo") \n"
-      yum list graalvm22-ee-17*
-  # - type: Command
-  #   name: "Temporary workaround: Set up the yum repo"
-  #   command: |
-  #     ##### BEGIN: Temporary workaround. This step will move to the build runner.
-  #     (echo -e '[ol7_oci_included]' && \
-  #     echo 'name=Oracle Software for OCI users on Oracle Linux $releasever ($basearch)' && \
-  #     echo 'baseurl=https://yum-phx.oracle.com/repo/OracleLinux/OL7/oci/included/\$basearch/' && \
-  #     echo 'gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle' && \
-  #     echo 'gpgcheck=1' && \
-  #     echo 'enabled=1') > /etc/yum.repos.d/oci-included-ol7.repo
-  #     yum-config-manager --enable ol7_optional_latest
-  #     ## yum-config-manager --enable ol7_oci_included
-  #     ##### END: Temporary workaround. This step will move to the build runner.
-  # - type: Command
-  #   name: "Post-yum repo checks"
-  #   command: |
-  #     printf "Contents of /etc/yum.repos.d/:\n $(ls -alh /etc/yum.repos.d/) \n"
+      printf "Output of yum list graalvm22-ee-17* :\n $(yum list graalvm22-ee-17*) \n"
   - type: Command
     name: "Install GraalVM Enterprise 22.1 Java 17 - JDK and Native Image"
     command: |
@@ -41,32 +20,14 @@ steps:
   - type: Command
     name: "Set the PATH here. JAVA_HOME already set in env > variables above."
     command: |
-      echo "JAVA_HOME: $JAVA_HOME"
-      echo "Before PATH: $PATH"
       export PATH=$JAVA_HOME/bin:$PATH
-  - type: Command
-    name: "Post-install checks"
-    command: |
-      echo "JAVA_HOME: $JAVA_HOME"
-      echo "After PATH: $PATH"
-      printf "Java version:\n $(java -version) \n"
-      printf "Native-image version: $(native-image --version) \n"
-      printf "Maven version:\n $(mvn --version) \n"
-      echo "Current dir: $(pwd)"
-      printf "Current dir contents:\n $(ls -alh)"
-      yum list graalvm22-ee-17*
   - type: Command
     name: "Build the JAR"
     command: |
       mvn --no-transfer-progress clean package
-  # - type: Command
-  #   name: "Run mvn clean to remove all generated build files"
-  #   command: |
-  #     mvn clean
   - type: Command
     name: "Build the native executable"
     command: |
-      # mvn --no-transfer-progress clean -Pnative -DskipTests package
       mvn --no-transfer-progress -Pnative -DskipTests package
 outputArtifacts:
   - name: app_jar
