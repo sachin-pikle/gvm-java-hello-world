@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-To run this sample on local, you need the following:
+To run this sample on local (Mac OS), you need the following:
 
 1. The latest GraalVM Enterprise 22.x for Java 17 components:
     - JDK, and
