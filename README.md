@@ -75,7 +75,7 @@ To run this sample on local, you need the following:
     mvn clean -Pnative -DskipTests package
     ```
 
-    4.1) With the Quick Build option disabled in the pom.xml, the output should be similar to:
+    4.1) **Option 1:** With **Quick Build disabled** in the pom.xml, the output should be similar to:
 
     ```
     ...
@@ -126,7 +126,7 @@ To run this sample on local, you need the following:
     ...
     ```
 
-    4.2) With the Quick Build option enabled in the pom.xml, the output should be similar to:
+    4.2) **Option 2:** With **Quick Build enabled** in the pom.xml, the output should be similar to:
 
     ```
     ...
