@@ -1,4 +1,4 @@
-# gvm-yum-install
+# GraalVM Java Hello World
 
 ## Prerequisites
 
