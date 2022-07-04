@@ -78,9 +78,11 @@
             <configuration>
               <imageName>my-app</imageName>
               <buildArgs>
+                <buildArg>-H:+ReportExceptionStackTraces</buildArg>
+                <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
                 <buildArg>--verbose</buildArg>
                 <!-- For Quick Build (22.1+) -->
-								<buildArg>-Ob</buildArg>
+								<!-- <buildArg>-Ob</buildArg> -->
               </buildArgs>
             </configuration>
           </plugin>
