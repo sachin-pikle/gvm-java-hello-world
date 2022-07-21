@@ -26,31 +26,26 @@ Cloud Shell comes with Maven and the following GraalVM Enterprise components pre
     ```shell
     $ csruntimectl java list
 
+      graalvmeejdk-17.0.4               /usr/lib/jvm/graalvm22-ee-java17
     * openjdk-11.0.15                   /usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.0.1.el7_9.x86_64
       openjdk-1.8.0.332                 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.el7_9.x86_64
-
-      ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
-      graalvm22-ee-java17               /usr/lib/jvm/graalvm22-ee-java17
     ```
 
     ```shell
-    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
-    $ csruntimectl java set graalvm22-ee-java17
+    $ csruntimectl java set graalvmeejdk-17.0.4
 
-    The current managed java version is set to graalvm22-ee-java17
+    The current managed java version is set to graalvmeejdk-17.0.4
     ```
 
     ```shell
     $ echo $JAVA_HOME
 
-    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
     /usr/lib/jvm/graalvm22-ee-java17
     ```
 
     ```shell
     $ echo $PATH
 
-    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
     /usr/lib/jvm/graalvm22-ee-java17:/usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.0.1.el7_9.x86_64/bin/:/ggs_client/usr/bin:/home/user_xyz/.yarn/bin:/home/user_xyz/.config/yarn/global/node_modules/.bin:/opt/oracle/sqlcl/bin:/usr/lib/oracle/21/client64/bin/:/home/oci/.pyenv/plugins/pyenv-virtualenv/shims:/home/oci/.pyenv/shims:/home/oci/.pyenv/bin:/opt/rh/rh-ruby27/root/usr/local/bin:/opt/rh/rh-ruby27/root/usr/bin:/opt/rh/rh-maven36/root/usr/bin:/opt/rh/rh-git227/root/usr/bin:/opt/rh/rh-dotnet31/root/usr/bin:/opt/rh/rh-dotnet31/root/usr/sbin:/opt/rh/httpd24/root/usr/bin:/opt/rh/httpd24/root/usr/sbin:/opt/rh/devtoolset-11/root/usr/bin:/home/oci/bin:/opt/gradle/gradle-7.4.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/user_xyz/.composer/vendor/bin:/opt/yarn-v1.22.17/bin:/home/user_xyz/.dotnet/tools
     ```
 
@@ -71,7 +66,6 @@ Cloud Shell comes with Maven and the following GraalVM Enterprise components pre
     ```shell
     $ mvn --version
 
-    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
     Apache Maven 3.6.1 (Red Hat 3.6.1-6.3)
     Maven home: /opt/rh/rh-maven36/root/usr/share/maven
     Java version: 17.0.4, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17   
@@ -110,6 +104,7 @@ Cloud Shell comes with Maven and the following GraalVM Enterprise components pre
 
     ```
     ...
+    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
     ================================================================================================
     GraalVM Native Image: Generating 'my-app' (executable)...
     ================================================================================================
@@ -160,7 +155,8 @@ Cloud Shell comes with Maven and the following GraalVM Enterprise components pre
     4.2) **Option 2:** With **Quick Build enabled** in the pom.xml, the output should be similar to:
 
     ```
-    ...
+    ##### PLACEHOLDER FOR GRAALVM - TO BE CONFIRMED WITH THE CLOUD SHELL TEAM #####
+   ...
     You enabled -Ob for this image build. This will configure some optimizations to reduce image build time.
     This feature should only be used during development and never for deployment.
     ================================================================================================
