@@ -107,10 +107,22 @@ OS name: "linux", version: "4.14.35-2047.513.2.2.el7uek.x86_64", arch: "amd64", 
         at org.graalvm.nativeimage.builder/com.oracle.svm.core.util.VMError.shouldNotReachHere(VMError.java:68)
     ```
 
-    Starting 22.2, the Native Image builder runs on the module path. If you get the above error, disable this feature by setting the following environment variable and run the Native Image maven build again.
+    Starting 22.2, the Native Image builder runs on the module path. If you get the above error, disable this feature using one of the following options:
+    
+    Option 1) Set the following environment variable and run the Native Image maven build again.
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
+    ```
+
+    **OR** Option 2) Uncomment this section in the [pom.xml](./pom.xml) and run the Native Image maven build again.
+
+    ```
+    <!-- Start: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
+    <environment>
+        <USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>false</USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>
+    </environment>
+    <!-- End: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
     ```
 
     4.2) **Option 1:** With **Quick Build disabled** in the pom.xml, the output should be similar to:
