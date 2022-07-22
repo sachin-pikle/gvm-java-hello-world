@@ -27,7 +27,7 @@ Check the versions installed using:
 $ csruntimectl java list
 
     graalvmeejdk-17.0.4                                    /usr/lib64/graalvm/graalvm22-ee-java17
-    * openjdk-11.0.15                   /usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.0.1.el7_9.x86_64
+  * openjdk-11.0.15                   /usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.0.1.el7_9.x86_64
     openjdk-1.8.0.332                /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.el7_9.x86_64
 ```
 
