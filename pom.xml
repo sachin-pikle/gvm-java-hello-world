@@ -82,7 +82,7 @@
                 <!-- <buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg> -->
                 <buildArg>--verbose</buildArg>
                 <!-- For Quick Build (22.1+) -->
-								<!-- <buildArg>-Ob</buildArg> -->
+								<buildArg>-Ob</buildArg>
               </buildArgs>
               <!-- Start: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
               <!-- <environment>
