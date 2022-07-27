@@ -100,7 +100,7 @@ GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstall
 7. Confirm the `maven` version and `Java` used:
 
     ```shell
-    $ mvn --version
+    mvn --version
     ```
 
     The output should be similar to:
