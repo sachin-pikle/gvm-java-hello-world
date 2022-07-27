@@ -14,7 +14,7 @@ GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (
 
 Cloud Shell is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with pre-authenticated OCI CLI and other pre-installed developer tools. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run commands. 
 
-GraalVM Enterprise Java Development Kit (JDK) and Native Image are preinstalled in Cloud Shell. 
+GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstalled in Cloud Shell. 
  
 
 ## Prerequisites
