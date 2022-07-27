@@ -1,4 +1,4 @@
-# Java Hello World with GraalVM Enterprise in Oracle Cloud Infrastructre Cloud Shell
+# Java Hello World with GraalVM Enterprise in Oracle Cloud Infrastructure Cloud Shell
 
 This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. 
 
