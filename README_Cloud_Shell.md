@@ -97,35 +97,66 @@ OS name: "linux", version: "4.14.35-2047.513.2.2.el7uek.x86_64", arch: "amd64", 
 4. Run the GraalVM Native Image build to produce a native executable.
 
     ```shell
+    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
+
     mvn clean -Pnative -DskipTests package
     ```
 
-    4.1) You may get this error when you run the Native Image maven build with GraalVM Enterprise 22.2+:
-        
-    ```shell
-    Fatal error: com.oracle.svm.core.util.VMError$HostedError: The classpath of com.oracle.svm.hosted.NativeImageGeneratorRunner must not contain ".". This can happen implicitly if the builder runs exclusively on the --module-path but specifies the com.oracle.svm.hosted.NativeImageGeneratorRunner main class without --module.
-        at org.graalvm.nativeimage.builder/com.oracle.svm.core.util.VMError.shouldNotReachHere(VMError.java:68)
-    ```
-
-    Starting 22.2, the Native Image builder runs on the module path. If you get the above error, disable this feature using one of the following options:
-    
-    Option 1) Set the following environment variable and run the Native Image maven build again.
-
-    ```shell
-    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
-    ```
-
-    **OR** Option 2) Uncomment this section in the [pom.xml](./pom.xml) and run the Native Image maven build again.
+    4.1) **Option 1:** With **Quick Build enabled** in the pom.xml, the output should be similar to:
 
     ```
-    <!-- Start: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
-    <environment>
-        <USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>false</USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM>
-    </environment>
-    <!-- End: Workaround for 22.2: Disable the default Java Module Path using USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM -->
+    ...
+    You enabled -Ob for this image build. This will configure some optimizations to reduce image build time.
+    This feature should only be used during development and never for deployment.
+    ================================================================================================
+    GraalVM Native Image: Generating 'my-app' (executable)...
+    ================================================================================================
+    [1/7] Initializing...                                                           (10.4s @ 0.21GB)
+    Version info: 'GraalVM 22.2.0 Java 17 EE'
+    Java version info: '17.0.4+11-LTS-jvmci-22.2-b05'
+    C compiler: gcc (redhat, x86_64, 11.2.1)
+    Garbage collector: Serial GC
+    [2/7] Performing analysis...  [*****]                                           (18.3s @ 0.72GB)
+    1,826 (62.38%) of  2,927 classes reachable
+    1,665 (46.89%) of  3,551 fields reachable
+    7,652 (37.12%) of 20,613 methods reachable
+        21 classes,     0 fields, and   258 methods registered for reflection
+        49 classes,    32 fields, and    48 methods registered for JNI access
+        4 native libraries: dl, pthread, rt, z
+    [3/7] Building universe...                                                       (3.2s @ 0.97GB)
+    [4/7] Parsing methods...      [**]                                               (2.8s @ 0.40GB)
+    [5/7] Inlining methods...     [***]                                              (1.7s @ 0.66GB)
+    [6/7] Compiling methods...    [***]                                             (10.0s @ 0.82GB)
+    [7/7] Creating image...                                                          (2.3s @ 1.01GB)
+    1.78MB (42.88%) for code area:     4,439 compilation units
+    2.23MB (53.52%) for image heap:   36,753 objects and 1 resources
+    153.49KB ( 3.60%) for other data
+    4.16MB in total
+    ------------------------------------------------------------------------------------------------
+    Top 10 packages in code area:                               Top 10 object types in image heap:
+    208.78KB com.oracle.svm.jni                                 374.04KB byte[] for code metadata
+    184.72KB java.lang                                          317.32KB byte[] for java.lang.String
+    169.35KB com.oracle.svm.core.code                           268.43KB java.lang.Class
+    144.00KB java.util                                          263.72KB java.lang.String
+    104.52KB com.oracle.svm.core.genscavenge                    213.43KB byte[] for general heap data
+    80.73KB java.util.concurrent                               111.71KB char[]
+    64.87KB java.lang.invoke                      71.33KB com.oracle.svm.core.hub.DynamicHubCompanion
+    52.95KB java.math                                          68.66KB byte[] for reflection metadata
+    44.58KB com.oracle.svm.jni.functions       50.56KB c.o.svm.core.hub.DynamicHub$ReflectionMetadata
+    40.69KB java.io                                             45.11KB java.util.HashMap$Node[]
+    700.71KB for 99 more packages                               347.71KB for 478 more object types
+    ------------------------------------------------------------------------------------------------
+                1.1s (2.2% of total time) in 14 GCs | Peak RSS: 1.61GB | CPU load: 1.60
+    ------------------------------------------------------------------------------------------------
+    Produced artifacts:
+    /home/user_graal/gvme-java-hello-world/target/my-app (executable)
+    /home/user_graal/gvme-java-hello-world/target/my-app.build_artifacts.txt (txt)
+    ================================================================================================
+    Finished generating 'my-app' in 50.8s.
+    ...
     ```
 
-    4.2) **Option 1:** With **Quick Build disabled** in the pom.xml, the output should be similar to:
+    4.2) **Option 2:** With **Quick Build disabled** in the pom.xml, the output should be similar to:
 
     ```
     ...
@@ -174,59 +205,6 @@ OS name: "linux", version: "4.14.35-2047.513.2.2.el7uek.x86_64", arch: "amd64", 
     /home/user_graal/gvme-java-hello-world/target/my-app.build_artifacts.txt (txt)
     ================================================================================================
     Finished generating 'my-app' in 2m 19s.
-    ...
-    ```
-
-    4.3) **Option 2:** With **Quick Build enabled** in the pom.xml, the output should be similar to:
-
-    ```
-    You enabled -Ob for this image build. This will configure some optimizations to reduce image build time.
-    This feature should only be used during development and never for deployment.
-    ================================================================================================
-    GraalVM Native Image: Generating 'my-app' (executable)...
-    ================================================================================================
-    [1/7] Initializing...                                                           (10.4s @ 0.21GB)
-    Version info: 'GraalVM 22.2.0 Java 17 EE'
-    Java version info: '17.0.4+11-LTS-jvmci-22.2-b05'
-    C compiler: gcc (redhat, x86_64, 11.2.1)
-    Garbage collector: Serial GC
-    [2/7] Performing analysis...  [*****]                                           (18.3s @ 0.72GB)
-    1,826 (62.38%) of  2,927 classes reachable
-    1,665 (46.89%) of  3,551 fields reachable
-    7,652 (37.12%) of 20,613 methods reachable
-        21 classes,     0 fields, and   258 methods registered for reflection
-        49 classes,    32 fields, and    48 methods registered for JNI access
-        4 native libraries: dl, pthread, rt, z
-    [3/7] Building universe...                                                       (3.2s @ 0.97GB)
-    [4/7] Parsing methods...      [**]                                               (2.8s @ 0.40GB)
-    [5/7] Inlining methods...     [***]                                              (1.7s @ 0.66GB)
-    [6/7] Compiling methods...    [***]                                             (10.0s @ 0.82GB)
-    [7/7] Creating image...                                                          (2.3s @ 1.01GB)
-    1.78MB (42.88%) for code area:     4,439 compilation units
-    2.23MB (53.52%) for image heap:   36,753 objects and 1 resources
-    153.49KB ( 3.60%) for other data
-    4.16MB in total
-    ------------------------------------------------------------------------------------------------
-    Top 10 packages in code area:                               Top 10 object types in image heap:
-    208.78KB com.oracle.svm.jni                                 374.04KB byte[] for code metadata
-    184.72KB java.lang                                          317.32KB byte[] for java.lang.String
-    169.35KB com.oracle.svm.core.code                           268.43KB java.lang.Class
-    144.00KB java.util                                          263.72KB java.lang.String
-    104.52KB com.oracle.svm.core.genscavenge                    213.43KB byte[] for general heap data
-    80.73KB java.util.concurrent                               111.71KB char[]
-    64.87KB java.lang.invoke                      71.33KB com.oracle.svm.core.hub.DynamicHubCompanion
-    52.95KB java.math                                          68.66KB byte[] for reflection metadata
-    44.58KB com.oracle.svm.jni.functions       50.56KB c.o.svm.core.hub.DynamicHub$ReflectionMetadata
-    40.69KB java.io                                             45.11KB java.util.HashMap$Node[]
-    700.71KB for 99 more packages                               347.71KB for 478 more object types
-    ------------------------------------------------------------------------------------------------
-                1.1s (2.2% of total time) in 14 GCs | Peak RSS: 1.61GB | CPU load: 1.60
-    ------------------------------------------------------------------------------------------------
-    Produced artifacts:
-    /home/user_graal/gvme-java-hello-world/target/my-app (executable)
-    /home/user_graal/gvme-java-hello-world/target/my-app.build_artifacts.txt (txt)
-    ================================================================================================
-    Finished generating 'my-app' in 50.8s.
     ...
     ```
 
