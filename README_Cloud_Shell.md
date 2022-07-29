@@ -1,6 +1,6 @@
 # Java Hello World with GraalVM Enterprise in Oracle Cloud Infrastructure Cloud Shell
 
-This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This sample uses a simple hello world Java application built GraalVM Enterprise Native Image and JDK.
+This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This sample uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK.
 
 ## What is GraalVM?
 
