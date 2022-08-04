@@ -1,6 +1,6 @@
-# Java Hello World with GraalVM Enterprise in Oracle Cloud Infrastructure Cloud Shell
+# Java Hello World with GraalVM Enterprise in OCI Cloud Shell
 
-This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This sample uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK.
+This sample shows how you can get started quickly with GraalVM Enterprise Edition in Oracle Cloud Infrastructre (OCI) Cloud Shell. This sample uses a simple hello world Java application built with GraalVM Enterprise Native Image and JDK (Java Development Kit).
 
 ## What is GraalVM?
 
@@ -14,14 +14,15 @@ GraalVM Enterprise Edition is available for use on Oracle Cloud Infrastructure (
 
 Cloud Shell is a free-to-use browser-based terminal accessible from the Oracle Cloud Console. It provides access to a Linux shell with pre-authenticated OCI CLI and other pre-installed developer tools. You can use the shell to interact with OCI resources, follow labs and tutorials, and quickly run commands. 
 
-GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstalled in Cloud Shell. 
- 
+GraalVM Enterprise Native Image and JDK 17 are preinstalled in Cloud Shell. 
 
-## Prerequisites
+## Step 1: Launch Cloud Shell 
 
 1. [Login to OCI Console and launch Cloud Shell](https://cloud.oracle.com/?bdcstate=maximized&cloudshell=true).
 
-2. List the installed JDKs:
+## Step 2: Select GraalVM as the current JDK 
+
+1. List the installed JDKs:
 
     ```shell
     csruntimectl java list
@@ -35,7 +36,7 @@ GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstall
       openjdk-1.8.0.332                /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.el7_9.x86_64
     ```
 
-3. Select GraalVM as the current JDK:
+2. Select GraalVM as the current JDK:
 
     ```shell
     csruntimectl java set graalvmeejdk-17.0.4
@@ -47,74 +48,12 @@ GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstall
     The current managed java version is set to graalvmeejdk-17.0.4.
     ```
 
-4. Confirm the environment variable `JAVA_HOME` is set correctly:
+## Step 3: [OPTIONAL] Confirm Software Version and Environment Variables
 
-    ```shell
-    echo $JAVA_HOME
-    ```
-
-    The output should be similar to:
-
-    ```shell
-    /usr/lib64/graalvm/graalvm22-ee-java17
-    ```
-
-5. Confirm the environment variable `PATH` is set correctly:
-
-    ```shell
-    echo $PATH
-    ```
-
-    The output should be similar to:
-
-    ```shell
-    /usr/lib64/graalvm/graalvm22-ee-java17/bin/:/ggs_client/usr/bin: ...
-    ```
-
-6. Confirm the `java` version:
-
-    ```shell
-    java -version
-    ```
-
-    The output should be similar to:
-
-    ```shell
-    java version "17.0.4" 2022-07-19 LTS   
-    Java(TM) SE Runtime Environment GraalVM EE 22.2.0 (build 17.0.4+11-LTS-jvmci-22.2-b05)   
-    Java HotSpot(TM) 64-Bit Server VM GraalVM EE 22.2.0 (build 17.0.4+11-LTS-jvmci-22.2-b05, mixed mode, sharing)
-    ```
-
-7. Confirm the `native-image` version:
-
-    ```shell
-    native-image --version
-    ```
-
-    The output should be similar to:
-
-    ```shell
-    GraalVM 22.2.0 Java 17 EE (Java Version 17.0.4+11-LTS-jvmci-22.2-b05)
-    ```
-
-7. Confirm the `maven` version and `Java` used:
-
-    ```shell
-    mvn --version
-    ```
-
-    The output should be similar to:
-
-    ```shell
-    Apache Maven 3.6.1 (Red Hat 3.6.1-6.3)
-    Maven home: /opt/rh/rh-maven36/root/usr/share/maven
-    Java version: 17.0.4, vendor: Oracle Corporation, runtime: /usr/lib64/graalvm/graalvm22-ee-java17   
-    Default locale: en_US, platform encoding: UTF-8
-    OS name: "linux", version: "4.14.35-2047.513.2.2.el7uek.x86_64", arch: "amd64", family: "unix"
-    ```
+This step is optional - [Check software version and environment variables](./README-CS-check-version-env-vars.md)
 
 
-## Steps to run a Java application
+## Step 4: Setup Project and Run
 
 1. Git clone this repo.
 
@@ -135,15 +74,26 @@ GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstall
     Hello World!
     ```
 
-4. Run the GraalVM Native Image build to produce a native executable.
+4. Let's use GraalVM Native Image to produce a native executable.
+
+    4.1) **Option 1: Quick Build enabled**
+
+    To enable `Quick Build`, open [pom.xml](./pom.xml) in a text editor like Nano and uncomment the line shown:
+
+    ```
+    <buildArg>-Ob</buildArg>
+    ```
+
+    Run the Native Image build to generate a native executable:
 
     ```shell
     export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
 
     mvn clean -Pnative -DskipTests package
+
     ```
 
-    4.1) **Option 1:** With **Quick Build enabled** in the pom.xml, the output should be similar to:
+    With **Quick Build enabled** in the pom.xml, the output should be similar to:
 
     ```
     ...
@@ -197,7 +147,24 @@ GraalVM Enterprise JDK 17 (Java Development Kit) and Native Image are preinstall
     ...
     ```
 
-    4.2) **Option 2:** With **Quick Build disabled** in the pom.xml, the output should be similar to:
+    4.2) **Option 2: Quick Build disabled** 
+    
+    To disable `Quick Build`, open [pom.xml](pom.xml) in a text editor like Nano and comment the line shown:  
+
+    ```
+    <!-- <buildArg>-Ob</buildArg> -->
+    ```
+
+    Run the Native Image build to generate a native executable:
+
+    ```shell
+    export USE_NATIVE_IMAGE_JAVA_PLATFORM_MODULE_SYSTEM=false
+
+    mvn clean -Pnative -DskipTests package
+    
+    ```
+
+    With **Quick Build disabled** in the pom.xml, the output should be similar to:
 
     ```
     ...
